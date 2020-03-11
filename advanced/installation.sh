@@ -25,7 +25,7 @@ make_repo() {
 
 
 
-if [ ! -d /usr/local/src/osbox ]; then
+if [ ! -d "/usr/local/src/osbox" ]; then
   make_repo /usr/local/src/osbox https://github.com/jerryhopper/osbox.git
 
   #     Excecutable     Real location
