@@ -74,7 +74,7 @@ if [ "$OSBOX_STATE" == "2" ]; then
     echo "State = 2"
     #telegram "INSTALLSTATE=$OSBOX_STATE apt-get install prerequisites"
     # git lighttpd
-    apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data
+    apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data >/dev/null
 
     # Set state.
     echo "3" > $OSBOX_STATE_FILE
