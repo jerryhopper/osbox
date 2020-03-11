@@ -28,6 +28,13 @@ make_repo() {
 echo "start"
 
 #if [ ! -d "/usr/local/src/osbox" ]; then
+  rm -rf /usr/share/osbox
+  rm -rf /usr/lib/osbox
+  rm -rf /usr/sbin/osbox
+  rm -rf /var/lib/dietpi/postboot.d/postboot0.sh
+  rm -rf /var/lib/dietpi/postboot.d/postboot1.sh
+
+
   make_repo /usr/local/src/osbox https://github.com/jerryhopper/osbox.git
 
   #     Excecutable     new location

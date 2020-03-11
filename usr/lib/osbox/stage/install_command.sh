@@ -23,7 +23,7 @@ make_repo() {
     return 0
 }
 
-make_repo /usr/share/osbox https://github.com/jerryhopper/osbox.git
+#make_repo /usr/share/osbox https://github.com/jerryhopper/osbox.git
 
 
 if [ ! -f /var/lib/dietpi/postboot.d/postboot0.sh ]; then
