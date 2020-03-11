@@ -27,19 +27,29 @@ source /usr/share/osbox/variables
 ######################################
 ##         installation             ##
 ######################################
-if [ "$1" == "install" ]; then
-  if [ "$INSTALLSTATE" != "9" ]; then
-      bash /usr/lib/osbox/stage/install_command.sh
-      exit 0;
-  fi
+
+if [ ! -f $OSBOX_STATE_FILE ]; then
+  echo "0">$OSBOX_STATE_FILE
+  INSTALLSTATE="0"
+else
+  INSTALLSTATE=$(<$OSBOX_ID_FILE)
 fi
 
-if [ "$1" == "boot" ]; then
-  if [ "$INSTALLSTATE" != "9" ]; then
+
+if [ "$1" == "install" ]; then
+  bash /usr/lib/osbox/stage/install_command.sh
+  exit 0;
+fi
+
+
+if [ "$1" == "bootcheck" ]; then
+  if [ "$INSTALLSTATE" != "0" ]; then
       bash /usr/lib/osbox/stage/boot_command.sh
       exit 0;
   fi
 fi
+
+
 
 exit
 

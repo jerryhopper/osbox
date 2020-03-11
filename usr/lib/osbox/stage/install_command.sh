@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+source /usr/share/osbox/variables
+
+
+
+
 # A function to clone a repo
 make_repo() {
   echo "Make Repo"
@@ -23,7 +29,6 @@ make_repo() {
     return 0
 }
 
-#make_repo /usr/share/osbox https://github.com/jerryhopper/osbox.git
 
 
 if [ ! -f /var/lib/dietpi/postboot.d/postboot0.sh ]; then
@@ -35,4 +40,20 @@ if [ ! -f /var/lib/dietpi/postboot.d/postboot1.sh ]; then
     ln -s /usr/share/osbox/postboot1.sh /var/lib/dietpi/postboot.d/postboot1.sh
     chmod +x /var/lib/dietpi/postboot.d/postboot1.sh
 fi
+
+
+
+
+
+
+if [ ! -f $OSBOX_STATE_FILE ]; then
+  echo "0">$OSBOX_STATE_FILE
+  INSTALLSTATE="0"
+else
+  INSTALLSTATE=$(<$OSBOX_ID_FILE)
+fi
+
+
+
+
 
