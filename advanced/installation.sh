@@ -34,6 +34,6 @@ echo "start"
   ln -s /usr/local/src/osbox/usr/sbin/osbox /usr/sbin/osbox
   chmod +x /usr/sbin/osbox
 
-  ln -s /usr/local/src/osbox/usr/share/osbox /usr/share/osbox 
-
+  ln -s /usr/local/src/osbox/usr/share/osbox /usr/share/osbox
+  ln -s /usr/local/src/osbox/usr/lib/osbox /usr/lib/osbox
 #fi
