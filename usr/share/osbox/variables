@@ -1,4 +1,6 @@
+OSBOX_ETC_LOC=/etc/osbox
 OSBOX_STATE_FILE=/etc/osbox/osbox.state
 OSBOX_ID_FILE=/etc/osbox/osbox.id
+OSBOX_HARDWARE=/etc/osbox/osbox.hw
 
 

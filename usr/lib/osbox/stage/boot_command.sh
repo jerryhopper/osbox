@@ -5,9 +5,6 @@ source /usr/lib/osbox/func/is_command
 source /usr/lib/osbox/func/make_repo
 
 
-if [ ! -f OSBOX_STATE_FILE ]; then
-      echo "0">OSBOX_STATE_FILE
-fi
 
 
 OSBOX_ID=${$OSBOX_ID_FILE}

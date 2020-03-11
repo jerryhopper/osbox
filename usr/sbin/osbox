@@ -24,16 +24,22 @@ fi
 
 source /usr/share/osbox/variables
 
-######################################
-##         installation             ##
-######################################
-
 if [ ! -f $OSBOX_STATE_FILE ]; then
   echo "0">$OSBOX_STATE_FILE
   INSTALLSTATE="0"
 else
   INSTALLSTATE=$(<$OSBOX_ID_FILE)
 fi
+
+######################################
+##         installation             ##
+######################################
+
+if [ "$1" == "reset" ]; then
+  echo "0">$OSBOX_STATE_FILE
+  exit 0;
+fi
+
 
 
 if [ "$1" == "install" ]; then
@@ -47,10 +53,12 @@ if [ "$1" == "bootcheck" ]; then
       bash /usr/lib/osbox/stage/boot_command.sh
       exit 0;
   fi
+  echo "Wrong state."
+  exit 0;
 fi
 
 
-
+echo "Usage: osbox (reset|install)"
 exit
 
 

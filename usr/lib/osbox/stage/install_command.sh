@@ -1,35 +1,18 @@
 #!/bin/bash
 
 
-source /usr/share/osbox/variables
+if [ ! -f /usr/sbin/osbox ]; then
+  ln -s /usr/local/src/osbox/usr/sbin/osbox /usr/sbin/osbox
+  chmod +x /usr/sbin/osbox
+fi
 
+if [ ! -f /usr/share/osbox ]; then
+  ln -s /usr/local/src/osbox/usr/share/osbox /usr/share/osbox
+fi
 
-
-
-# A function to clone a repo
-make_repo() {
-  echo "Make Repo"
-    # Set named variables for better readability
-    local directory="${1}"
-    local remoteRepo="${2}"
-    # The message to display when this function is running
-    str="Clone ${remoteRepo} into ${directory}"
-    # Display the message and use the color table to preface the message with an "info" indicator
-    printf "  %b %s..." "${INFO}" "${str}"
-    # If the directory exists,
-    if [[ -d "${directory}" ]]; then
-        # delete everything in it so git can clone into it
-        rm -rf "${directory}"
-    fi
-    # Clone the repo and return the return code from this command
-    git clone -q --depth 20 "${remoteRepo}" "${directory}" &> /dev/null || return $?
-    # Show a colored message showing it's status
-    printf "%b  %b %s\\n" "${OVER}" "${TICK}" "${str}"
-    # Always return 0? Not sure this is correct
-    return 0
-}
-
-
+if [ ! -f /usr/lib/osbox ]; then
+  ln -s /usr/local/src/osbox/usr/lib/osbox /usr/lib/osbox
+fi
 
 if [ ! -f /var/lib/dietpi/postboot.d/postboot0.sh ]; then
     ln -s /usr/share/osbox/postboot0.sh /var/lib/dietpi/postboot.d/postboot0.sh
@@ -41,19 +24,74 @@ if [ ! -f /var/lib/dietpi/postboot.d/postboot1.sh ]; then
     chmod +x /var/lib/dietpi/postboot.d/postboot1.sh
 fi
 
+#########################################################################3
+source /usr/share/osbox/variables
+source /usr/lib/osbox/func/is_command
+source /usr/lib/osbox/func/make_repo
+source /usr/lib/osbox/func/minfo
+#########################################################################3
 
 
 
 
+#OSBOX_ID=${$OSBOX_ID_FILE}
+OSBOX_STATE=${$OSBOX_STATE_FILE}
 
-if [ ! -f $OSBOX_STATE_FILE ]; then
-  echo "0">$OSBOX_STATE_FILE
-  INSTALLSTATE="0"
-else
-  INSTALLSTATE=$(<$OSBOX_ID_FILE)
+
+if [ "$OSBOX_STATE" == "0" ]; then
+  echo "State = 0"
+  echo $(minfo)>$OSBOX_HARDWARE
+  # Set state.
+  echo "1">$OSBOX_STATE_FILE
+  OSBOX_STATE="1"
 fi
 
 
 
+if [ "$OSBOX_STATE" == "1" ]; then
+  echo "State = 1"
+    if $(is_command git) ; then
+        echo  "git is available."
+        # Set state.
+        echo "2">$OSBOX_STATE_FILE
+        OSBOX_STATE = "2"
+    else
+        apt install git -y
+        sleep 1
+        reboot
+    fi
 
+fi
+
+
+if [ "$OSBOX_STATE" == "2" ]; then
+    echo "State = 2"
+    #telegram "INSTALLSTATE=$OSBOX_STATE apt-get install prerequisites"
+    # git lighttpd
+    apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data
+
+    # Set state.
+    echo "3" > $OSBOX_STATE_FILE
+    OSBOX_STATE=3
+fi
+
+
+if [ "$OSBOX_STATE" == "3" ]; then
+    echo "State = 3"
+    #telegram "INSTALLSTATE=$OSBOX_STATE Cloning blackbox.git"
+    echo "mkdir "
+    if [ ! -d "/var/www/html/blackbox" ]; then
+        mkdir -p /var/www/html/blackbox
+    fi
+    echo "makerepo"
+    make_repo /var/www/html/blackbox https://github.com/jerryhopper/blackboxweb.git
+    echo "setstate"
+    echo "composer install"
+    composer install -d /var/www/html/blackbox
+
+    # Set state.
+    echo "4" > $OSBOX_STATE_FILE
+    OSBOX_STATE=4
+
+fi
 
