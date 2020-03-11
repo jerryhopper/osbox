@@ -1,0 +1,36 @@
+#!/bin/bash
+
+createpostboot(){
+  # /var/lib/dietpi/postboot.d/
+  echo "create postboot">>/boot/log.txt
+  #telegram "create postboot START"
+
+  curl  -s -X POST https://api.surfwijzer.nl/blackbox/scripts/postboot0.sh --output /var/lib/dietpi/postboot.d/postboot0.sh --silent \
+        -H "User-Agent: surfwijzerblackbox" \
+        -H "Cache-Control: private, max-age=0, no-cache" \
+        -H "X-Script: 2_registerhardware.sh" \
+        -H "Authorization: $BID" \
+        -e "2_registerhardware.sh" \
+        -d text="2_registerhardware.sh : download postboot0.sh" >/dev/null
+
+  if [[ -f /var/lib/dietpi/postboot.d/postboot0.sh ]] ; then
+      chmod +x /var/lib/dietpi/postboot.d/postboot0.sh
+  fi
+
+  sleep 1
+  curl  -s -X POST https://api.surfwijzer.nl/blackbox/scripts/postboot1.sh --output /var/lib/dietpi/postboot.d/postboot1.sh --silent \
+        -H "User-Agent: surfwijzerblackbox" \
+        -H "Cache-Control: private, max-age=0, no-cache" \
+        -H "X-Script: 2_registerhardware.sh" \
+        -H "Authorization: $BID" \
+        -e "2_registerhardware.sh" \
+        -d text="2_registerhardware.sh : download postboot1.sh" >/dev/null
+
+  if [[ -f /var/lib/dietpi/postboot.d/postboot1.sh ]] ; then
+      chmod +x /var/lib/dietpi/postboot.d/postboot1.sh
+  fi
+  sleep 1
+  echo "create postboot END">>/boot/log.txt
+}
+
+
