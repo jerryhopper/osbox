@@ -29,7 +29,7 @@ if [ ! -f $OSBOX_STATE_FILE ]; then
   echo "0">$OSBOX_STATE_FILE
   INSTALLSTATE="0"
 else
-  INSTALLSTATE=$(<$OSBOX_ID_FILE)
+  INSTALLSTATE=$(<$OSBOX_STATE_FILE)
 fi
 
 ######################################
