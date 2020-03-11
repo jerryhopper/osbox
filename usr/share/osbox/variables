@@ -1,3 +1,4 @@
 OSBOX_STATE_FILE=/etc/osbox/osbox.state
 OSBOX_ID_FILE=/etc/osbox/osbox.id
 
+
