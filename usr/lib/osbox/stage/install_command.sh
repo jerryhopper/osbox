@@ -34,8 +34,13 @@ source /usr/lib/osbox/func/minfo
 
 
 
-#OSBOX_ID=${$OSBOX_ID_FILE}
-OSBOX_STATE=$($OSBOX_STATE_FILE)
+if [ ! -f $OSBOX_STATE_FILE ]; then
+  echo "0">$OSBOX_STATE_FILE
+  OSBOX_STATE="0"
+else
+  OSBOX_STATE=$(<$OSBOX_STATE_FILE)
+fi
+
 
 
 if [ "$OSBOX_STATE" == "0" ]; then
