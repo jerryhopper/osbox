@@ -60,7 +60,7 @@ if [ "$OSBOX_STATE" == "1" ]; then
         echo  "git is available."
         # Set state.
         echo "2" > $OSBOX_STATE_FILE
-        OSBOX_STATE = "2"
+        OSBOX_STATE="2"
     else
         apt install git -y
         sleep 1
