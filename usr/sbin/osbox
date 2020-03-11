@@ -25,6 +25,7 @@ fi
 source /usr/share/osbox/variables
 
 if [ ! -f $OSBOX_STATE_FILE ]; then
+  mkdir /etc/osbox
   echo "0">/etc/osbox/osbox.state
   INSTALLSTATE="0"
 else
