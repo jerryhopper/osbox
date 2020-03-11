@@ -27,12 +27,12 @@ make_repo /usr/share/osbox https://github.com/jerryhopper/osbox.git
 
 
 if [ ! -f /var/lib/dietpi/postboot.d/postboot0.sh ]; then
-    ln -s /var/lib/dietpi/postboot.d/postboot0.sh /usr/share/osbox/postboot0.sh
+    ln -s /usr/share/osbox/postboot0.sh /var/lib/dietpi/postboot.d/postboot0.sh
     chmod +x /var/lib/dietpi/postboot.d/postboot0.sh
 fi
 
 if [ ! -f /var/lib/dietpi/postboot.d/postboot1.sh ]; then
-    ln -s /var/lib/dietpi/postboot.d/postboot1.sh /usr/share/osbox/postboot1.sh
+    ln -s /usr/share/osbox/postboot1.sh /var/lib/dietpi/postboot.d/postboot1.sh
     chmod +x /var/lib/dietpi/postboot.d/postboot1.sh
 fi
 
