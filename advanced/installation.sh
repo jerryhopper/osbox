@@ -3,6 +3,7 @@
 
 # A function to clone a repo
 make_repo() {
+  echo "make repo"
     # Set named variables for better readability
     local directory="${1}"
     local remoteRepo="${2}"
