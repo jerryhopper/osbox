@@ -35,6 +35,7 @@ source /usr/lib/osbox/func/minfo
 
 
 if [ ! -f $OSBOX_STATE_FILE ]; then
+  mkdir $OSBOX_ETC
   echo "0">$OSBOX_STATE_FILE
   OSBOX_STATE="0"
 else
