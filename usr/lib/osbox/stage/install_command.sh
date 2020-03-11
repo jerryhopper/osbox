@@ -35,7 +35,7 @@ source /usr/lib/osbox/func/minfo
 
 
 #OSBOX_ID=${$OSBOX_ID_FILE}
-OSBOX_STATE=${$OSBOX_STATE_FILE}
+OSBOX_STATE=$($OSBOX_STATE_FILE)
 
 
 if [ "$OSBOX_STATE" == "0" ]; then
