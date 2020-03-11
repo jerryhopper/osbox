@@ -35,7 +35,7 @@ source /usr/lib/osbox/func/minfo
 
 
 if [ ! -f $OSBOX_STATE_FILE ]; then
-  echo "0">/etc/osbox/osbox.state
+  echo "0">$OSBOX_STATE_FILE
   OSBOX_STATE="0"
 else
   OSBOX_STATE=$(<$OSBOX_STATE_FILE)
@@ -47,7 +47,7 @@ if [ "$OSBOX_STATE" == "0" ]; then
   echo "State = 0"
   echo $(minfo)>$OSBOX_HARDWARE
   # Set state.
-  echo "1">/etc/osbox/osbox.state
+  echo "1">$OSBOX_STATE_FILE
   OSBOX_STATE="1"
 fi
 
@@ -58,7 +58,7 @@ if [ "$OSBOX_STATE" == "1" ]; then
     if $(is_command git) ; then
         echo  "git is available."
         # Set state.
-        echo "2">/etc/osbox/osbox.state
+        echo "2" > $OSBOX_STATE_FILE
         OSBOX_STATE = "2"
     else
         apt install git -y
@@ -76,7 +76,7 @@ if [ "$OSBOX_STATE" == "2" ]; then
     apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data
 
     # Set state.
-    echo "3" > /etc/osbox/osbox.state
+    echo "3" > $OSBOX_STATE_FILE
     OSBOX_STATE=3
 fi
 
@@ -85,17 +85,17 @@ if [ "$OSBOX_STATE" == "3" ]; then
     echo "State = 3"
     #telegram "INSTALLSTATE=$OSBOX_STATE Cloning blackbox.git"
     echo "mkdir "
-    if [ ! -d "/var/www/html/blackbox" ]; then
-        mkdir -p /var/www/html/blackbox
+    if [ ! -d "/var/www/html/osbox" ]; then
+        mkdir -p /var/www/html/osbox
     fi
     echo "makerepo"
-    make_repo /var/www/html/blackbox https://github.com/jerryhopper/blackboxweb.git
-    echo "setstate"
+    make_repo /var/www/html/osbox https://github.com/jerryhopper/blackboxweb.git
+
     echo "composer install"
-    composer install -d /var/www/html/blackbox
+    composer install -d /var/www/html/osbox
 
     # Set state.
-    echo "4" > /etc/osbox/osbox.state
+    echo "4" > $OSBOX_STATE_FILE
     OSBOX_STATE=4
 
 fi
