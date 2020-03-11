@@ -25,7 +25,7 @@ fi
 source /usr/share/osbox/variables
 
 if [ ! -f $OSBOX_STATE_FILE ]; then
-  echo "0">"$OSBOX_STATE_FILE"
+  echo "0" > $OSBOX_STATE_FILE
   INSTALLSTATE="0"
 else
   INSTALLSTATE=$(<$OSBOX_ID_FILE)
@@ -36,7 +36,7 @@ fi
 ######################################
 
 if [ "$1" == "reset" ]; then
-  echo "0">"$OSBOX_STATE_FILE"
+  echo "0" > $OSBOX_STATE_FILE
   exit 0;
 fi
 
