@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # A function to clone a repo
 make_repo() {
