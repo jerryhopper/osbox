@@ -29,6 +29,7 @@ source /usr/share/osbox/variables
 source /usr/lib/osbox/func/is_command
 source /usr/lib/osbox/func/make_repo
 source /usr/lib/osbox/func/minfo
+source /usr/lib/osbox/func/install_osboxweb
 #########################################################################3
 
 
@@ -66,8 +67,9 @@ if [ "$OSBOX_STATE" == "1" ]; then
         sleep 1
         reboot
     fi
-
 fi
+
+
 
 
 if [ "$OSBOX_STATE" == "2" ]; then
@@ -82,19 +84,14 @@ if [ "$OSBOX_STATE" == "2" ]; then
 fi
 
 
+
+
+
+
 if [ "$OSBOX_STATE" == "3" ]; then
     echo "State = 3"
     #telegram "INSTALLSTATE=$OSBOX_STATE Cloning blackbox.git"
-    echo "mkdir "
-    if [ ! -d "/var/www/html/osbox" ]; then
-        mkdir -p /var/www/html/osbox
-    fi
-    echo "makerepo"
-    make_repo /var/www/html/osbox https://github.com/jerryhopper/blackboxweb.git
-
-    echo "composer install"
-    composer install -d /var/www/html/osbox
-
+    install_osboxweb
     # Set state.
     echo "4" > $OSBOX_STATE_FILE
     OSBOX_STATE=4
