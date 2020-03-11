@@ -35,7 +35,7 @@ source /usr/lib/osbox/func/minfo
 
 
 if [ ! -f $OSBOX_STATE_FILE ]; then
-  echo "0">$OSBOX_STATE_FILE
+  echo "0">/etc/osbox/osbox.state
   OSBOX_STATE="0"
 else
   OSBOX_STATE=$(<$OSBOX_STATE_FILE)
@@ -47,7 +47,7 @@ if [ "$OSBOX_STATE" == "0" ]; then
   echo "State = 0"
   echo $(minfo)>$OSBOX_HARDWARE
   # Set state.
-  echo "1">$OSBOX_STATE_FILE
+  echo "1">/etc/osbox/osbox.state
   OSBOX_STATE="1"
 fi
 
@@ -58,7 +58,7 @@ if [ "$OSBOX_STATE" == "1" ]; then
     if $(is_command git) ; then
         echo  "git is available."
         # Set state.
-        echo "2">$OSBOX_STATE_FILE
+        echo "2">/etc/osbox/osbox.state
         OSBOX_STATE = "2"
     else
         apt install git -y
@@ -76,7 +76,7 @@ if [ "$OSBOX_STATE" == "2" ]; then
     apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data
 
     # Set state.
-    echo "3" > $OSBOX_STATE_FILE
+    echo "3" > /etc/osbox/osbox.state
     OSBOX_STATE=3
 fi
 
@@ -95,7 +95,7 @@ if [ "$OSBOX_STATE" == "3" ]; then
     composer install -d /var/www/html/blackbox
 
     # Set state.
-    echo "4" > $OSBOX_STATE_FILE
+    echo "4" > /etc/osbox/osbox.state
     OSBOX_STATE=4
 
 fi
