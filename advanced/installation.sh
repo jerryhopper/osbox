@@ -30,10 +30,10 @@ echo "start"
 #if [ ! -d "/usr/local/src/osbox" ]; then
   make_repo /usr/local/src/osbox https://github.com/jerryhopper/osbox.git
 
-  #     Excecutable     Real location
-  ln -s /usr/sbin/osbox /usr/local/src/osbox/usr/sbin/osbox
+  #     Excecutable     new location
+  ln -s /usr/local/src/osbox/usr/sbin/osbox /usr/sbin/osbox
   chmod +x /usr/sbin/osbox
 
-  ln -s /usr/share/osbox /usr/local/src/osbox/usr/share/osbox
+  ln -s /usr/local/src/osbox/usr/share/osbox /usr/share/osbox 
 
 #fi
