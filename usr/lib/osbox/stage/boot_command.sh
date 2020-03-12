@@ -59,15 +59,12 @@ fi
 # install prerequisites
 if [ "$OSBOX_STATE" == "2" ]; then
     echo "State = 2"
-    apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data >/dev/null
+    apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data
 
     # Set state.
     echo "3" > $OSBOX_STATE_FILE
     OSBOX_STATE=3
 fi
-
-
-
 
 
 # install the osbox-web
@@ -85,7 +82,7 @@ fi
 # install the osbox-web
 if [ "$OSBOX_STATE" == "4" ]; then
     #
-
+    echo "State = 4"
 fi
 
 
