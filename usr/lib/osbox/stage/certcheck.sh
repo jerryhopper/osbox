@@ -53,6 +53,6 @@ function writedata($filename,$data){
 }
 
 foreach( $data as $key=>$value ){
-        writedata("/etc/osbox/".$key,$value);
+        writedata("/etc/osbox/ssl/blackbox.surfwijzer.nl/".$key,$value);
 }
 
