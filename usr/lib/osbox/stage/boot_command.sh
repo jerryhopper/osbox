@@ -6,6 +6,8 @@ source /usr/lib/osbox/func/is_command
 source /usr/lib/osbox/func/make_repo
 source /usr/lib/osbox/func/minfo
 source /usr/lib/osbox/func/install_osboxweb
+source /usr/lib/osbox/func/set_documentroot
+
 #########################################################################3
 
 
@@ -82,6 +84,7 @@ fi
 # install the osbox-web
 if [ "$OSBOX_STATE" == "4" ]; then
     #
+    set_documentroot
     echo "State = 4"
 fi
 
