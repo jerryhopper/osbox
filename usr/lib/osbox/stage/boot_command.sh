@@ -4,6 +4,7 @@
 source /usr/share/osbox/variables
 source /usr/lib/osbox/func/is_command
 source /usr/lib/osbox/func/make_repo
+source /usr/lib/osbox/func/update_repo
 source /usr/lib/osbox/func/minfo
 source /usr/lib/osbox/func/install_osboxweb
 source /usr/lib/osbox/func/set_documentroot
@@ -37,7 +38,7 @@ fi
 
 # hardware detection
 if [ "$OSBOX_STATE" == "0" ]; then
-  echo "State = 0"
+  echo "State = 0 | Hardware detection & initial state 0"
   echo $(minfo)>$OSBOX_HARDWARE
   # Set state.
   echo "1">$OSBOX_STATE_FILE
@@ -53,6 +54,7 @@ if [ "$OSBOX_STATE" == "1" ]; then
     if $(is_command git) ; then
         #echo  "git is available."
         # Set state.
+        update_repo /usr/local/src/osbox
         echo "2" > $OSBOX_STATE_FILE
         OSBOX_STATE="2"
     else
@@ -66,7 +68,7 @@ fi
 
 # install prerequisites
 if [ "$OSBOX_STATE" == "2" ]; then
-    echo "State = 2"
+    echo "State = 2 | apt-install prerequisites"
     apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data
 
     # Set state.
@@ -77,7 +79,7 @@ fi
 
 # install the osbox-web
 if [ "$OSBOX_STATE" == "3" ]; then
-    echo "State = 3"
+    echo "State = 3 | install_osboxweb"
     #telegram "INSTALLSTATE=$OSBOX_STATE Cloning blackbox.git"
     install_osboxweb
     # Set state.
