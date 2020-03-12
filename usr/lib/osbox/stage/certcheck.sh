@@ -11,10 +11,11 @@ $cert = stream_context_get_params($read);
 $certinfo = openssl_x509_parse($cert['options']['ssl']['peer_certificate']);
 
 
-;
 
+#if( !file_exists("/etc/osbox") ){
+#}
 if( ( time()-$certinfo['validTo_time_t'] ) < (3600*48) ){
-  die();
+  #die();
 }
 
 echo '<pre>';
@@ -23,7 +24,8 @@ echo '</pre>';
 
 $valid_from = date(DATE_RFC2822,$certinfo['validFrom_time_t']);
 $valid_to = date(DATE_RFC2822,$certinfo['validTo_time_t']);
-echo "Valid From: ".$valid_from."<br>";
+echo "Valid From: ".$valid_from."
+}<br>";
 echo "Valid To:".$valid_to."<br>";
 
 
