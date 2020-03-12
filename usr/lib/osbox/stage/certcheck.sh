@@ -20,7 +20,7 @@ if( file_exists("/etc/osbox/ssl/blackbox.surfwijzer.nl/ssl.ca")  &&  ( time()-$c
 
 
 echo ">";
-echo "Certificate download"
+echo "Certificate download";
 
 
 #echo '<pre>';
