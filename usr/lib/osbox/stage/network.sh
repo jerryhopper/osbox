@@ -26,7 +26,7 @@ fi
 
 if [ "$1" == "current" ]; then
     #echo "network current"
-    bash /usr/share/osbox/stage/networkcurrent.sh
+    bash /usr/lib/osbox/stage/networkcurrent.sh
     exit 0
 fi
 
