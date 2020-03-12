@@ -10,9 +10,8 @@ source /usr/lib/osbox/func/update_repo
 source /usr/lib/osbox/func/minfo
 source /usr/lib/osbox/func/install_osboxweb
 #########################################################################3
-
 if [ ! -f $OSBOX_STATE_FILE ]; then
-  echo "ERROR: Cannot update when not installed!"
+  echo "ERROR: Cannot update when not installed! ($OSBOX_STATE_FILE)"
   echo "Try the command : osbox install"
   exit 1
 fi
