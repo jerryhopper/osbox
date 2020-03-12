@@ -10,6 +10,7 @@ source /usr/lib/osbox/func/minfo
 source /usr/lib/osbox/func/install_osboxweb
 source /usr/lib/osbox/func/set_documentroot
 
+source /usr/lib/osbox/stage/service_dhcpcd.sh
 #########################################################################3
 
 
@@ -71,6 +72,9 @@ fi
 if [ "$OSBOX_STATE" == "2" ]; then
     echo "State = 2 | apt-install prerequisites"
     apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data
+
+    service_dhcpcd disable
+    service_dhcpcd stop
 
     # Set state.
     echo "3" > $OSBOX_STATE_FILE

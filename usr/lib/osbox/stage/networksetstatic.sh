@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 source /usr/lib/osbox/func/valid_ip
+source /usr/lib/osbox/func/is_command
 # set ip static
 
 set -e
