@@ -13,6 +13,12 @@ source /usr/lib/osbox/func/set_documentroot
 
 
 # Check if statefile exists.
+
+if [ ! -d /etc/osbox ]; then
+  mkdir /etc/osbox
+fi
+
+
 if [ ! -f $OSBOX_STATE_FILE ]; then
   mkdir $OSBOX_ETC
   echo "0">$OSBOX_STATE_FILE
