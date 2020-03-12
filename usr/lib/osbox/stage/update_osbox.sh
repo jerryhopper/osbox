@@ -23,7 +23,7 @@ update_repo /var/www/html/osbox
 
 
 echo "Updating Composer dependencies."
-composer update -d /var/www/html/osbox >/dev/null
+composer update -d /var/www/html/osbox>/dev/null
 
 
 
