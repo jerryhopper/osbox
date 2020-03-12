@@ -45,15 +45,10 @@ if [ "$1" == "reinstall" ]; then
   curl -sSL https://raw.githubusercontent.com/jerryhopper/osbox/master/advanced/installation.sh | bash
   exit 0;
 fi
-
-
-
 if [ "$1" == "install" ]; then
   bash /usr/lib/osbox/stage/install_command.sh
   exit 0;
 fi
-
-
 if [ "$1" == "bootcheck" ]; then
   #if [ "$INSTALLSTATE" != "0" ]; then
       bash /usr/lib/osbox/stage/boot_command.sh
@@ -62,11 +57,21 @@ if [ "$1" == "bootcheck" ]; then
   echo "Wrong state."
   exit 0;
 fi
-
 if [ "$1" == "update" ]; then
   bash /usr/lib/osbox/stage/update_osbox.sh
   exit 0;
 fi
+#######################################
+if [ "$1" == "network" ]; then
+  bash /usr/lib/osbox/stage/network.sh $1 $2 $3
+  exit 0;
+fi
+
+
+
+
+
+
 
 echo "Usage: osbox (install|update|reset)"
 exit
