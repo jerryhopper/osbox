@@ -1,7 +1,7 @@
 
 
 install_osboxweb() {
-    echo "mkdir "
+    echo "Installing osboxweb "
     if [ ! -d "/var/www/html/osbox" ]; then
         mkdir -p /var/www/html/osbox
     fi
@@ -9,6 +9,12 @@ install_osboxweb() {
     make_repo /var/www/html/osbox https://github.com/jerryhopper/blackboxweb.git
 
     echo "composer install"
-    composer install -d /var/www/html/osbox
+    composer install -d /var/www/html/osbox >/dev/null
 
+}
+
+
+remove_osboxweb(){
+
+    rm -rf /var/www/html/osbox
 }

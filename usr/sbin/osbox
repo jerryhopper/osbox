@@ -58,8 +58,12 @@ if [ "$1" == "bootcheck" ]; then
   exit 0;
 fi
 
+if [ "$1" == "update" ]; then
+  bash /usr/lib/osbox/stage/update_osbox.sh
+  exit 0;
+fi
 
-echo "Usage: osbox (reset|install)"
+echo "Usage: osbox (install|update|reset)"
 exit
 
 
