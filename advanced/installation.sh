@@ -31,6 +31,7 @@ echo "start"
   rm -rf /usr/share/osbox
   rm -rf /usr/lib/osbox
   rm -rf /usr/sbin/osbox
+  rm -rf /usr/local/src/osbox
   rm -rf /var/lib/dietpi/postboot.d/postboot0.sh
   rm -rf /var/lib/dietpi/postboot.d/postboot1.sh
 
@@ -44,3 +45,4 @@ echo "start"
   ln -s /usr/local/src/osbox/usr/share/osbox /usr/share/osbox
   ln -s /usr/local/src/osbox/usr/lib/osbox /usr/lib/osbox
 #fi
+  osbox install
