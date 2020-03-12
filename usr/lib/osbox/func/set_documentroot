@@ -2,5 +2,5 @@
 
 set_documentroot(){
     #server.document-root        = "/var/www"
-    sed -i 's/"\/var\/www"/"\/var\/www\/html"/g' /etc/lighthttpd/lighthttpd.conf
+    sed -i 's/"\/var\/www"/"\/var\/www\/html"/g' /etc/lighttpd/lighthttpd.conf
 }
