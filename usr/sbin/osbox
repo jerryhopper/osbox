@@ -66,7 +66,7 @@ fi
 #   osbox network <command>
 #######################################
 if [ "$1" == "network" ]; then
-  bash /usr/lib/osbox/stage/network.sh $2 $3 $4 $5
+  bash /usr/lib/osbox/stage/network.sh $2 $3 $4 $5 $6
   exit 0;
 fi
 
