@@ -28,6 +28,8 @@ make_repo() {
 echo "start"
 
 #if [ ! -d "/usr/local/src/osbox" ]; then
+  rm -rf /etc/osbox/osbox.state
+  
   rm -rf /usr/share/osbox
   rm -rf /usr/lib/osbox
   rm -rf /usr/sbin/osbox
