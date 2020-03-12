@@ -26,7 +26,7 @@ fi
 
 if [ "$1" == "current" ]; then
     #echo "network current"
-    bash /usr/share/blackbox/networkcurrent.sh
+    bash /usr/share/osbox/networkcurrent.sh
     exit 0
 fi
 
