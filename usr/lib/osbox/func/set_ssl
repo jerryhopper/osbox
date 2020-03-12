@@ -1,0 +1,23 @@
+
+set_ssl(){
+
+    if [ ! -d /etc/osbox/ssl ]; then
+        mkdir /etc/osbox/ssl
+    fi
+
+    if [ ! -f /etc/lighttpd/conf-enabled/10-ssl.conf  ]; then
+        echo "server.modules += (\"mod_openssl\")">/etc/lighttpd/conf-available/10-ssl.conf
+        echo "$SERVER[\"socket\"] == \"0.0.0.0:443\" {">>/etc/lighttpd/conf-available/10-ssl.conf
+        echo "    ssl.engine = \"enable\" ">>/etc/lighttpd/conf-available/10-ssl.conf
+        echo "    ssl.openssl.ssl-conf-cmd = (\"Protocol\" => \"-ALL, TLSv1.2, TLSv1.3\") # (recommended to accept only TLSv1.2 and TLSv1.3)">>/etc/lighttpd/conf-available/10-ssl.conf
+        echo "    ssl.privkey= \"/etc/osbox/ssl/blackbox.surfwijzer.nl/privkey.pem\" ">>/etc/lighttpd/conf-available/10-ssl.conf
+        echo "    ssl.pemfile= \"/etc/osbox/ssl/blackbox.surfwijzer.nl/cert.pem\" ">>/etc/lighttpd/conf-available/10-ssl.conf
+        echo "    ssl.ca-file= \"/etc/osbox/ssl/blackbox.surfwijzer.nl/chain.pem\" ">>/etc/lighttpd/conf-available/10-ssl.conf
+        echo "}">>/etc/lighttpd/conf-available/10-ssl.conf
+
+        ln -s /etc/lighttpd/conf-available/10-ssl.conf /etc/lighttpd/conf-enabled/10-ssl.conf
+    fi
+}
+
+
+

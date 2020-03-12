@@ -55,10 +55,10 @@ fi
 
 
 if [ "$1" == "bootcheck" ]; then
-  if [ "$INSTALLSTATE" != "0" ]; then
+  #if [ "$INSTALLSTATE" != "0" ]; then
       bash /usr/lib/osbox/stage/boot_command.sh
       exit 0;
-  fi
+  #fi
   echo "Wrong state."
   exit 0;
 fi
