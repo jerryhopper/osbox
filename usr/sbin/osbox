@@ -61,9 +61,12 @@ if [ "$1" == "update" ]; then
   bash /usr/lib/osbox/stage/update_osbox.sh
   exit 0;
 fi
+
+#######################################
+#   osbox network <command>
 #######################################
 if [ "$1" == "network" ]; then
-  bash /usr/lib/osbox/stage/network.sh $2 $3
+  bash /usr/lib/osbox/stage/network.sh $2 $3 $4 $5
   exit 0;
 fi
 
