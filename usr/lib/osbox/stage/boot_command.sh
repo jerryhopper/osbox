@@ -85,7 +85,7 @@ fi
 if [ "$OSBOX_STATE" == "4" ]; then
     #
     set_documentroot
-    bash /usr/lib/osbox/stage/certcheck.sh
+    php /usr/lib/osbox/stage/certcheck.sh
 
     echo "State = 4"
 fi
