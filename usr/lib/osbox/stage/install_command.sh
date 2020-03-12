@@ -24,5 +24,9 @@ if [ ! -f /var/lib/dietpi/postboot.d/postboot1.sh ]; then
     chmod +x /var/lib/dietpi/postboot.d/postboot1.sh
 fi
 
+if [ ! -d /etc/osbox ]; then
+  mkdir /etc/osbox
+fi
+
 
 bash /usr/lib/osbox/stage/boot_command.sh
