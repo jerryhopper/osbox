@@ -40,6 +40,11 @@ if [ "$1" == "reset" ]; then
   echo "0">$OSBOX_STATE_FILE
   exit 0;
 fi
+if [ "$1" == "reinstall" ]; then
+  echo "0">$OSBOX_STATE_FILE
+  bash /usr/lib/osbox/stage/install_command.sh
+  exit 0;
+fi
 
 
 

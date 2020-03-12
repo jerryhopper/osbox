@@ -13,7 +13,7 @@ source /usr/lib/osbox/func/install_osboxweb
 if [ ! -f $OSBOX_STATE_FILE ]; then
   echo "ERROR: Cannot update when not installed! ($OSBOX_STATE_FILE)"
   echo "Try the command : osbox install"
-  #exit 1
+  exit 1
 fi
 
 echo "Current state : $(<$OSBOX_STATE_FILE)"
@@ -29,7 +29,7 @@ update_repo /var/www/html/osbox
 
 echo ". "
 echo "Updating Composer dependencies."
-composer update -d /var/www/html/osbox>/dev/null
+composer update -d /var/www/html/osbox
 
 
 
