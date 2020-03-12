@@ -17,7 +17,7 @@ if [ "$1" == "reset" ]; then
     exit 0
 fi
 if [ "$1" == "set" ]; then
-    #echo "network set"
+    echo "networksetstatic.sh $2 $3 $4"
     bash /usr/lib/osbox/stage/networksetstatic.sh $2 $3 $4
     exit 0
     sleep 1
