@@ -29,11 +29,13 @@ echo "start"
 
 #if [ ! -d "/usr/local/src/osbox" ]; then
   rm -rf /etc/osbox/osbox.state
-  
-  rm -rf /usr/share/osbox
-  rm -rf /usr/lib/osbox
+  rm -rf /etc/osbox/osbox.id
+  rm -rf /etc/osbox/osbox.conf
+
   rm -rf /usr/sbin/osbox
+  rm -rf /usr/share/osbox
   rm -rf /usr/local/src/osbox
+  rm -rf /usr/lib/osbox
   rm -rf /var/lib/dietpi/postboot.d/postboot0.sh
   rm -rf /var/lib/dietpi/postboot.d/postboot1.sh
 
