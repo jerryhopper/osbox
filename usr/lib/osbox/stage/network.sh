@@ -1,6 +1,7 @@
 #!/bin/bash
 
 
+echo "1=$1"
 
 if [ "$1" == "info" ]; then
     bash /usr/lib/osbox/stage/networkinfo.sh
