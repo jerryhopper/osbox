@@ -29,7 +29,7 @@ source /usr/share/osbox/variables
 source /usr/lib/osbox/func/is_command
 source /usr/lib/osbox/func/make_repo
 source /usr/lib/osbox/func/minfo
-source /usr/lib/osbox/func/install_osboxweb
+source /usr/lib/osbox/func/install_osboxweb.cms
 #########################################################################3
 
 
