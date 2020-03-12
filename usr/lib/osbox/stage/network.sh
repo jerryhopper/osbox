@@ -8,7 +8,7 @@
       bash /usr/lib/osbox/stage/networkinfo.sh
       exit 0
   fi
-  
+
   if [ "$1" == "scan" ]; then
       bash /usr/lib/osbox/stage/networkscan.sh
       exit 0
