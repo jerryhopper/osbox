@@ -25,7 +25,7 @@ echo "Certificate download"
 
 
 #echo '<pre>';
-#print_r($certinfo);
+print_r($certinfo);
 #echo '</pre>';
 
 $valid_from = date(DATE_RFC2822,$certinfo['validFrom_time_t']);
