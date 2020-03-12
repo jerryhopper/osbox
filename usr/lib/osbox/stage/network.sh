@@ -7,7 +7,7 @@ if [ "$1" == "info" ]; then
     exit 0
 fi
 if [ "$1" == "scan" ]; then
-    bash /usr/lib/osbox/stage//networkscan.sh
+    bash /usr/lib/osbox/stage/networkscan.sh
     exit 0
 fi
 
