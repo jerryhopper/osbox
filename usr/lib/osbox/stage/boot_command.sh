@@ -91,8 +91,6 @@ fi
 
 # install the osbox-web
 if [ "$OSBOX_STATE" == "4" ]; then
-    #
-
     set_documentroot
     php /usr/lib/osbox/stage/certcheck.sh
     set_ssl

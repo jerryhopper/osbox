@@ -14,7 +14,7 @@ set_documentroot(){
     # delete the line with the 404 handler.
     sed -i '/server.error-handler-404/d' /etc/lighttpd/lighttpd.conf
     # add the line with the 404 handler.
-    echo "server.error-handler-404 = \"/error-404.php\"">>/etc/lighttpd/lighttpd.conf
+    echo "server.error-handler-404 = \"/osbox/home.php\"">>/etc/lighttpd/lighttpd.conf
 
 }
 
