@@ -136,35 +136,6 @@ exit
 
 
 
-# A function that combines the functions previously made
-getGitFiles() {
-    # Setup named variables for the git repos
-    # We need the directory
-    local directory="${1}"
-    # as well as the repo URL
-    local remoteRepo="${2}"
-    # A local variable containing the message to be displayed
-    local str="Check for existing repository in ${1}"
-    # Show the message
-    printf "  %b %s..." "${INFO}" "${str}"
-    # Check if the directory is a repository
-    if is_repo "${directory}"; then
-        # Show that we're checking it
-        printf "%b  %b %s\\n" "${OVER}" "${TICK}" "${str}"
-        # Update the repo, returning an error message on failure
-        update_repo "${directory}" || { printf "\\n  %b: Could not update local repository. Contact support.%b\\n" "${COL_LIGHT_RED}" "${COL_NC}"; exit 1; }
-    # If it's not a .git repo,
-    else
-        # Show an error
-        printf "%b  %b %s\\n" "${OVER}" "${CROSS}" "${str}"
-        # Attempt to make the repository, showing an error on failure
-        make_repo "${directory}" "${remoteRepo}" || { printf "\\n  %bError: Could not update local repository. Contact support.%b\\n" "${COL_LIGHT_RED}" "${COL_NC}"; exit 1; }
-    fi
-    # echo a blank line
-    echo ""
-    # and return success?
-    return 0
-}
 
 
 includeSources(){

@@ -4,6 +4,7 @@
 source /usr/share/osbox/variables
 source /usr/lib/osbox/func/is_command
 source /usr/lib/osbox/func/set_ssl
+source /usr/lib/osbox/func/is_repo
 source /usr/lib/osbox/func/make_repo
 source /usr/lib/osbox/func/update_repo
 source /usr/lib/osbox/func/minfo
@@ -14,6 +15,59 @@ source /usr/lib/osbox/func/find_ipv4_information
 
 source /usr/lib/osbox/stage/service_dhcpcd.sh
 #########################################################################3
+
+
+
+
+
+
+
+sendhash()
+{
+  # post the hardware data to ur api backend.
+  # we send the hardware-hash as authorization header.
+  #POSTDATA=$(<$TMP_POSTDATA)
+  #HARDWAREHASH=$(<$TMP_POSTDATAHASH)
+  BID="$(sha256sum /etc/osbox/osbox.hw)"
+
+  status_code=$(curl --write-out %{http_code} --silent --output /dev/null -i \
+  -H "User-Agent: surfwijzerblackbox" \
+  -H "Cache-Control: private, max-age=0, no-cache" \
+  -H "Accept: application/json" \
+  -H "X-Script: 2_registerhardware.sh" \
+  -H "Content-Type:application/json" \
+  -H "Authorization: $BID" \
+  -X POST --data "$(</etc/osbox/osbox.hw)" "https://api.surfwijzer.nl/blackbox/api/installation/$BID/$IPV4_ADDRESS")
+
+  # check if the post succeeds
+  if [[ "$status_code" -eq 200 ]] ; then
+    # unsuccessful attempt.
+    #telegram "sendhash Ok (already registered!) : Status = $status_code"
+    #devicelog "sendhash Ok (already registered!) : Status = $status_code ($IPV4_ADDRESS)"
+    echo "sendhash Ok (already registered!)  : Status = $status_code ($IPV4_ADDRESS)" >>/boot/log.txt
+    #echo "sendhash Error : Status = $status_code">>/boot/log.txt
+    #echo "Site status changed to $status_code"
+    #echo "ERRORRRR do not activate."
+
+  elif [[ "$status_code" -eq 201  ]] ;then
+    #telegram "sendhash ok : device registered ( $IPV4_ADDRESS) $BID"
+    #devicelog "sendhash ok : device registered ($IPV4_ADDRESS) $BID"
+    echo "sendhash ok : device registered ($IPV4_ADDRESS) $BID" >>/boot/log.txt
+    #createpostboot
+    #echo "5" > $BB_STATE
+    # write the hash for later reference.
+    #mkdir -p /var/www
+    echo  $BID>$BB_HASH
+
+  else
+
+    #telegram "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"
+    #devicelog "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"
+    echo "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"  >>/boot/log.txt
+  fi
+}
+
+
 
 
 
@@ -43,14 +97,28 @@ fi
 # hardware detection
 if [ "$OSBOX_STATE" == "0" ]; then
   echo "State = 0 | Hardware detection & initial state 0"
-  echo $(minfo)>$OSBOX_HARDWARE
+
+  if [ -f $OSBOX_ID_FILE ]; then
+    #generate hardware list.
+    echo $(minfo)>$OSBOX_HARDWARE
+
+    #generate hash of the hardware.
+    BBID="$(sha256sum $OSBOX_HARDWARE)"
+
+    #save the has as bbid
+    echo "$BBID">$OSBOX_ID_FILE
+  else
+     BBID="$(<$OSBOX_ID_FILE)"
+  fi
 
   # Set state.
   echo "1">$OSBOX_STATE_FILE
   OSBOX_STATE="1"
 fi
 
-
+if [ -f $OSBOX_ID_FILE ]; then
+  BBID="$(<$OSBOX_ID_FILE)"
+fi
 
 
 # doublecheck for git availability
