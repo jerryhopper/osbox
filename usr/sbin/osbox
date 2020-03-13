@@ -98,10 +98,6 @@ generate_post_data()
   DTE=$(date)
   ALL="{\"MID\":\"$MID\",\"MAC\":\"$MAC\",\"MEA\":\"$MEA\",\"MEU\":\"$MEU\",\"SDS\":\"$SDS\",\"FPU\":\"$FPU\",\"FSU\":\"$FSU\",\"CPH\":\"$CPH\",\"CPI\":\"$CPI\",\"CPP\":\"$CPP\",\"CPA\":\"$CPA\",\"DTE\":\"$DTE\",\"CPR\":\"$CPR\"}"
   echo $ALL
-
-  cat <<EOF
-{"MID":"$MID","MAC":"$MAC","MEA":"$MEA","MEU":"$MEU","SDS":"$SDS","FPU":"$FPU","FSU":"$FSU","CPH":"$CPH","CPI":"$CPI","CPP":"$CPP","CPA":"$CPA","DTE":"$DTE","CPR":"$CPR"}
-EOF
 }
 
 
@@ -109,7 +105,7 @@ EOF
 ##             test               ##
 ######################################
 if [ "$1" == "test" ]; then
-    echo $(generate_post_data)
+    echo "$(generate_post_data)"
     exit 0;
 fi
 ######################################
@@ -186,6 +182,7 @@ sendhash()
   # we send the hardware-hash as authorization header.
   #POSTDATA=$(<$TMP_POSTDATA)
   #HARDWAREHASH=$(<$TMP_POSTDATAHASH)
+  BID="$(sha256sum /etc/osbox/osbox.hw)"
 
   status_code=$(curl --write-out %{http_code} --silent --output /dev/null -i \
   -H "User-Agent: surfwijzerblackbox" \
@@ -194,7 +191,7 @@ sendhash()
   -H "X-Script: 2_registerhardware.sh" \
   -H "Content-Type:application/json" \
   -H "Authorization: $BID" \
-  -X POST --data "$(<$BB_JSON)" "https://api.surfwijzer.nl/blackbox/api/installation/$BID/$IPV4_ADDRESS")
+  -X POST --data "$(</etc/osbox/osbox.hw)" "https://api.surfwijzer.nl/blackbox/api/installation/$BID/$IPV4_ADDRESS")
 
   # check if the post succeeds
   if [[ "$status_code" -eq 200 ]] ; then
