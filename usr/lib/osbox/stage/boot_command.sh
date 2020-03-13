@@ -98,7 +98,7 @@ fi
 if [ "$OSBOX_STATE" == "0" ]; then
   echo "State = 0 | Hardware detection & initial state 0"
 
-  if [ -f $OSBOX_ID_FILE ]; then
+  if [ ! -f $OSBOX_ID_FILE ]; then
     #generate hardware list.
     echo $(minfo)>$OSBOX_HARDWARE
 
