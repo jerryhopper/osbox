@@ -28,7 +28,6 @@ sendhash()
   # we send the hardware-hash as authorization header.
   #POSTDATA=$(<$TMP_POSTDATA)
   #HARDWAREHASH=$(<$TMP_POSTDATAHASH)
-  BID="$(sha256sum /etc/osbox/osbox.hw)"
 
   status_code=$(curl --write-out %{http_code} --silent --output /dev/null -i \
   -H "User-Agent: surfwijzerblackbox" \
@@ -36,33 +35,21 @@ sendhash()
   -H "Accept: application/json" \
   -H "X-Script: 2_registerhardware.sh" \
   -H "Content-Type:application/json" \
-  -H "Authorization: $BID" \
-  -X POST --data "$(</etc/osbox/osbox.hw)" "https://api.surfwijzer.nl/blackbox/api/installation/$BID/$IPV4_ADDRESS")
+  -H "Authorization: $OSBOX_ID" \
+  -X POST --data "$(<OSBOX_ID_FILE)" "https://api.surfwijzer.nl/blackbox/api/installation/$OSBOX_ID/$IPV4_ADDRESS")
 
   # check if the post succeeds
   if [[ "$status_code" -eq 200 ]] ; then
     # unsuccessful attempt.
-    #telegram "sendhash Ok (already registered!) : Status = $status_code"
-    #devicelog "sendhash Ok (already registered!) : Status = $status_code ($IPV4_ADDRESS)"
     echo "sendhash Ok (already registered!)  : Status = $status_code ($IPV4_ADDRESS)" >>/boot/log.txt
     #echo "sendhash Error : Status = $status_code">>/boot/log.txt
-    #echo "Site status changed to $status_code"
-    #echo "ERRORRRR do not activate."
 
   elif [[ "$status_code" -eq 201  ]] ;then
-    #telegram "sendhash ok : device registered ( $IPV4_ADDRESS) $BID"
-    #devicelog "sendhash ok : device registered ($IPV4_ADDRESS) $BID"
     echo "sendhash ok : device registered ($IPV4_ADDRESS) $BID" >>/boot/log.txt
-    #createpostboot
     #echo "5" > $BB_STATE
     # write the hash for later reference.
-    #mkdir -p /var/www
-    echo  $BID>$BB_HASH
-
+    #echo  $BID>$BB_HASH
   else
-
-    #telegram "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"
-    #devicelog "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"
     echo "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"  >>/boot/log.txt
   fi
 }
@@ -103,12 +90,13 @@ if [ "$OSBOX_STATE" == "0" ]; then
     echo $(minfo)>$OSBOX_HARDWARE
 
     #generate hash of the hardware.
-    BBID="$(sha256sum $OSBOX_HARDWARE)"
+    # sha256sum /etc/osbox/osbox.hw|awk -F ' ' '{print $1}'
+    OSBOX_ID="$(sha256sum $OSBOX_HARDWARE|awk -F ' ' '{print $1}')"
 
     #save the has as bbid
     echo "$BBID">$OSBOX_ID_FILE
   else
-     BBID="$(<$OSBOX_ID_FILE)"
+     OSBOX_ID="$(<$OSBOX_ID_FILE)"
   fi
 
   # Set state.
@@ -116,8 +104,11 @@ if [ "$OSBOX_STATE" == "0" ]; then
   OSBOX_STATE="1"
 fi
 
+
+
+
 if [ -f $OSBOX_ID_FILE ]; then
-  BBID="$(<$OSBOX_ID_FILE)"
+  OSBOX_ID="$(<$OSBOX_ID_FILE)"
 fi
 
 
