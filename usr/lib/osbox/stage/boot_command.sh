@@ -168,11 +168,11 @@ if [ "$OSBOX_STATE" == "6" ]; then
 
     #telegram "install finished : pihole"
     echo "install finished : pihole">>/boot/log.txt
-    echo "6" > $OSBOX_STATE
-    OSBOX_STATE=6
+    echo "7" > $OSBOX_STATE_FILE
+    OSBOX_STATE=7
 fi
 
-if [ "$OSBOX_STATE" == "6" ]; then
+if [ "$OSBOX_STATE" == "7" ]; then
     #telegram "INSTALLSTATE=$INSTALLSTATE Finalizing installation."
     usermod -a -G pihole www-data
 
@@ -192,7 +192,11 @@ if [ "$OSBOX_STATE" == "6" ]; then
         #fi
 
     fi
+    echo "8" > $OSBOX_STATE_FILE
+    OSBOX_STATE=8
+fi
 
+if [ "$OSBOX_STATE" == "8" ]; then
     #echo 'server.document-root        = "/var/www/html"'>/etc/lighttpd/external.conf
     #echo 'server.error-handler-404    = "/blackbox/index.php"'>>/etc/lighttpd/external.conf
 
@@ -213,13 +217,19 @@ if [ "$OSBOX_STATE" == "6" ]; then
     #createpostboot
     set_documentroot
     service lighttpd restart
-    echo "7" > $OSBOX_STATE
-    OSBOX_STATE=7
+    echo "9" > $OSBOX_STATE_FILE
+    OSBOX_STATE=9
     #telegram "INSTALLSTATE=$INSTALLSTATE"
     #reboot
 fi
 
+if [ "$OSBOX_STATE" == "9" ]; then
 
+
+
+    echo "10" > $OSBOX_STATE_FILE
+    OSBOX_STATE=10
+fi
 
 
 if [ "$OSBOX_STATE" == "X" ]; then

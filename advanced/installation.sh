@@ -30,7 +30,10 @@ echo "start"
 #if [ ! -d "/usr/local/src/osbox" ]; then
   rm -rf /etc/osbox/osbox.state
   rm -rf /etc/osbox/osbox.id
+  rm -rf /etc/osbox/osbox.hw
   rm -rf /etc/osbox/osbox.conf
+  rm -rf /etc/osbox/osbox.conf
+
 
   rm -rf /usr/sbin/osbox
   rm -rf /usr/share/osbox
