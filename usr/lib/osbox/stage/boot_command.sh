@@ -11,6 +11,7 @@ source /usr/lib/osbox/func/update_repo
 source /usr/lib/osbox/func/minfo
 source /usr/lib/osbox/func/install_osboxweb
 source /usr/lib/osbox/func/set_documentroot
+source /usr/lib/osbox/func/valid_ip
 source /usr/lib/osbox/func/find_ipv4_information
 
 
