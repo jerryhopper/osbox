@@ -97,6 +97,7 @@ generate_post_data()
   CPR=$(cat /proc/cpuinfo |grep -m 1 "CPU revision"|cut -d' ' -f 3)
   DTE=$(date)
   ALL="{\"MID\":\"$MID\",\"MAC\":\"$MAC\",\"MEA\":\"$MEA\",\"MEU\":\"$MEU\",\"SDS\":\"$SDS\",\"FPU\":\"$FPU\",\"FSU\":\"$FSU\",\"CPH\":\"$CPH\",\"CPI\":\"$CPI\",\"CPP\":\"$CPP\",\"CPA\":\"$CPA\",\"DTE\":\"$DTE\",\"CPR\":\"$CPR\"}"
+  echo $ALL
 
   cat <<EOF
 {"MID":"$MID","MAC":"$MAC","MEA":"$MEA","MEU":"$MEU","SDS":"$SDS","FPU":"$FPU","FSU":"$FSU","CPH":"$CPH","CPI":"$CPI","CPP":"$CPP","CPA":"$CPA","DTE":"$DTE","CPR":"$CPR"}
@@ -108,7 +109,7 @@ EOF
 ##             test               ##
 ######################################
 if [ "$1" == "test" ]; then
-    echo generate_post_data
+    echo $(generate_post_data)
     exit 0;
 fi
 ######################################
