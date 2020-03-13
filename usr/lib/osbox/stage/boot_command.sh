@@ -182,11 +182,11 @@ if [ "$OSBOX_STATE" == "6" ]; then
     #telegram "INSTALLSTATE=$INSTALLSTATE create postboot"
 
     #createpostboot
-
+    set_documentroot
     service lighttpd restart
     echo "7" > $OSBOX_STATE
     OSBOX_STATE=7
-    telegram "INSTALLSTATE=$INSTALLSTATE"
+    #telegram "INSTALLSTATE=$INSTALLSTATE"
     #reboot
 fi
 
