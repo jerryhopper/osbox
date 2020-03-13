@@ -1,0 +1,14 @@
+
+piholeadlists(){
+    echo "https://blocklists.surfwijzer.nl/category/porn/$BID">/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/category/proxy/$BID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/category/advertising/$BID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/category/malware/$BID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/category/suspicious/$BID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/category/group1/$BID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/category/group2/$BID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/category/group3/$BID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/category/group4/$BID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/category/group5/$BID">>/etc/pihole/adlists.list
+}
+

@@ -9,6 +9,8 @@ source /usr/lib/osbox/func/update_repo
 source /usr/lib/osbox/func/minfo
 source /usr/lib/osbox/func/install_osboxweb
 source /usr/lib/osbox/func/set_documentroot
+source /usr/lib/osbox/func/find_ipv4_information
+
 
 source /usr/lib/osbox/stage/service_dhcpcd.sh
 #########################################################################3
@@ -103,13 +105,89 @@ if [ "$OSBOX_STATE" == "4" ]; then
     # restart
     service lighttpd restart
 
-
-    echo "State =. 4"
+    # Set state.
+    echo "5" > $OSBOX_STATE_FILE
+    OSBOX_STATE=5
 fi
 
+if [ "$OSBOX_STATE" == "5" ]; then
+
+    source /usr/lib/osbox/pihole/ftl_conf
+    source /usr/lib/osbox/pihole/adlists_list
+    source /usr/lib/osbox/pihole/setupvars_conf
+
+    #telegram "INSTALLSTATE=$INSTALLSTATE Installing Pihole configs and blocklists"
+    find_IPv4_information
+    piholesetupvarsconf
+    piholeftlconf
+    piholeadlists
+    #copy_piholeftlconf
+    #copy_piholesetupvarsconf
+
+    # Set state.
+    echo "6" > $OSBOX_STATE_FILE
+    OSBOX_STATE=6
+fi
+
+if [ "$OSBOX_STATE" == "6" ]; then
+    #telegram "INSTALLSTATE=$INSTALLSTATE Installing Pi-Hole from official repository"
+    echo "install started : pihole">>/boot/log.txt
+    curl -L https://install.pi-hole.net | bash /dev/stdin --unattended
+    #curl -L https://raw.githubusercontent.com/jerryhopper/pi-hole/master/automated%20install/basic-install.sh  | bash /dev/stdin --unattended
+    #curl -L https://github.com/jerryhopper/pi-hole/blob/release/v5.0/automated%20install/basic-install.sh  | bash /dev/stdin --unattended
+
+    #telegram "install finished : pihole"
+    echo "install finished : pihole">>/boot/log.txt
+    echo "6" > $OSBOX_STATE
+    OSBOX_STATE=6
+fi
+
+if [ "$OSBOX_STATE" == "6" ]; then
+    #telegram "INSTALLSTATE=$INSTALLSTATE Finalizing installation."
+    usermod -a -G pihole www-data
+
+    if [ ! -f "/etc/pihole/ftlbranch" ] ; then
+        #if [ "$(</etc/pihole/ftlbranch)" != "release/v5.0" ]; then
+
+            # Set repo to V5 beta
+            echo "release/v5.0" | sudo tee /etc/pihole/ftlbranch
+
+            #telegram "INSTALLSTATE=$INSTALLSTATE Checking out release/v5 CORE"
+            #devicelog "[v$VERSION] Checkout release/v5.0 CORE "
+            echo "yes"|pihole checkout core release/v5.0
+
+            #telegram "INSTALLSTATE=$OSBOX_STATE Checking out release/v5 WEB"
+            #devicelog "[v$VERSION] Checkout release/v5.0 WEB "
+            echo "yes"|pihole checkout web release/v5.0
+        #fi
+
+    fi
+
+    #echo 'server.document-root        = "/var/www/html"'>/etc/lighttpd/external.conf
+    #echo 'server.error-handler-404    = "/blackbox/index.php"'>>/etc/lighttpd/external.conf
 
 
 
+
+    #devicelog "[v$VERSION] Usermod "
+
+    usermod -a -G pihole www-data
+    #devicelog "[v$VERSION] edit lighttpd "
+    #sed -i -e 's/pihole\/index.php/blackbox\/index.php/g' /etc/lighttpd/lighttpd.conf
+    #sed -i -e 's/"\/var\/www"/"\/var\/www\/html"/g' /etc/lighttpd/lighttpd.conf
+
+    #echo "www-data ALL=NOPASSWD: /usr/sbin/blackbox">/etc/sudoers.d/blackbox
+
+    #telegram "INSTALLSTATE=$INSTALLSTATE create postboot"
+
+    #createpostboot
+
+    service lighttpd restart
+    echo "7" > $OSBOX_STATE
+    OSBOX_STATE=7
+    telegram "INSTALLSTATE=$INSTALLSTATE"
+    #reboot
+fi
 
 
 
