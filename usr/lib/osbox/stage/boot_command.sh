@@ -75,6 +75,7 @@ if [ "$OSBOX_STATE" == "2" ]; then
     echo "State = 2 | apt-install prerequisites"
     apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data
 
+
     service_dhcpcd "disable"
     service_dhcpcd "stop"
 
