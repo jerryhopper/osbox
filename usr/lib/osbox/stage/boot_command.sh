@@ -4,6 +4,7 @@
 source /usr/share/osbox/variables
 source /usr/lib/osbox/func/is_command
 source /usr/lib/osbox/func/set_ssl
+source /usr/lib/osbox/func/registerdevice
 source /usr/lib/osbox/func/is_repo
 source /usr/lib/osbox/func/make_repo
 source /usr/lib/osbox/func/update_repo
@@ -18,41 +19,6 @@ source /usr/lib/osbox/stage/service_dhcpcd.sh
 
 
 
-
-
-
-
-sendhash()
-{
-  # post the hardware data to ur api backend.
-  # we send the hardware-hash as authorization header.
-  #POSTDATA=$(<$TMP_POSTDATA)
-  #HARDWAREHASH=$(<$TMP_POSTDATAHASH)
-
-  status_code=$(curl --write-out %{http_code} --silent --output /dev/null -i \
-  -H "User-Agent: surfwijzerblackbox" \
-  -H "Cache-Control: private, max-age=0, no-cache" \
-  -H "Accept: application/json" \
-  -H "X-Script: 2_registerhardware.sh" \
-  -H "Content-Type:application/json" \
-  -H "Authorization: $OSBOX_ID" \
-  -X POST --data "$(<OSBOX_ID_FILE)" "https://api.surfwijzer.nl/blackbox/api/installation/$OSBOX_ID/$IPV4_ADDRESS")
-
-  # check if the post succeeds
-  if [[ "$status_code" -eq 200 ]] ; then
-    # unsuccessful attempt.
-    echo "sendhash Ok (already registered!)  : Status = $status_code ($IPV4_ADDRESS)" >>/boot/log.txt
-    #echo "sendhash Error : Status = $status_code">>/boot/log.txt
-
-  elif [[ "$status_code" -eq 201  ]] ;then
-    echo "sendhash ok : device registered ($IPV4_ADDRESS) $BID" >>/boot/log.txt
-    #echo "5" > $BB_STATE
-    # write the hash for later reference.
-    #echo  $BID>$BB_HASH
-  else
-    echo "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"  >>/boot/log.txt
-  fi
-}
 
 
 
@@ -80,6 +46,7 @@ fi
 
 
 
+find_IPv4_information
 
 # hardware detection
 if [ "$OSBOX_STATE" == "0" ]; then
@@ -92,9 +59,10 @@ if [ "$OSBOX_STATE" == "0" ]; then
     #generate hash of the hardware.
     # sha256sum /etc/osbox/osbox.hw|awk -F ' ' '{print $1}'
     OSBOX_ID="$(sha256sum $OSBOX_HARDWARE|awk -F ' ' '{print $1}')"
+    registerdevice
 
     #save the has as bbid
-    echo "$BBID">$OSBOX_ID_FILE
+    echo "$OSBOX_ID">$OSBOX_ID_FILE
   else
      OSBOX_ID="$(<$OSBOX_ID_FILE)"
   fi
