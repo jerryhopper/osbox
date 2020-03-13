@@ -5,6 +5,7 @@
 #########################################################################3
 source /usr/share/osbox/variables
 source /usr/lib/osbox/func/is_command
+source /usr/lib/osbox/func/is_repo
 source /usr/lib/osbox/func/make_repo
 source /usr/lib/osbox/func/update_repo
 source /usr/lib/osbox/func/getgitfiles
