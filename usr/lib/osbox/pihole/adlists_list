@@ -1,5 +1,6 @@
 
 piholeadlists(){
+    #$BID="$(</etc/)"
     echo "https://blocklists.surfwijzer.nl/category/porn/$BID">/etc/pihole/adlists.list
     echo "https://blocklists.surfwijzer.nl/category/proxy/$BID">>/etc/pihole/adlists.list
     echo "https://blocklists.surfwijzer.nl/category/advertising/$BID">>/etc/pihole/adlists.list

@@ -20,12 +20,14 @@ echo "Current state : $(<$OSBOX_STATE_FILE)"
 echo ". "
 echo "Updateing OSBox core."
 
-update_repo /usr/local/src/osbox
+make_repo /usr/local/src/osbox https://github.com/jerryhopper/osbox.git
+#update_repo /usr/local/src/osbox
 chmod +x /usr/sbin/osbox
 
 echo ". "
 echo "Updating OSBox web."
-update_repo /var/www/html/osbox
+make_repo /var/www/html/osbox https://github.com/jerryhopper/blackboxweb.git
+#update_repo /var/www/html/osbox
 
 echo ". "
 echo "Updating Composer dependencies."

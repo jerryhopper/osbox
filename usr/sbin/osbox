@@ -79,25 +79,6 @@ if [ "$1" == "reboot" ]; then
 fi
 ######################################
 
-
-
-
-
-echo "Usage: osbox (install|update|reset)"
-exit
-
-
-
-
-
-
-
-
-
-
-
-
-
 generate_post_data()
 {
   ### GET DEVICE/SETUP SPECIFIC VALUES ###
@@ -115,10 +96,39 @@ generate_post_data()
   CPA=$(cat /proc/cpuinfo |grep -m 1 "CPU architecture"|cut -d' ' -f 3)
   CPR=$(cat /proc/cpuinfo |grep -m 1 "CPU revision"|cut -d' ' -f 3)
   DTE=$(date)
+  ALL="{\"MID\":\"$MID\",\"MAC\":\"$MAC\",\"MEA\":\"$MEA\",\"MEU\":\"$MEU\",\"SDS\":\"$SDS\",\"FPU\":\"$FPU\",\"FSU\":\"$FSU\",\"CPH\":\"$CPH\",\"CPI\":\"$CPI\",\"CPP\":\"$CPP\",\"CPA\":\"$CPA\",\"DTE\":\"$DTE\",\"CPR\":\"$CPR\"}"
+
   cat <<EOF
 {"MID":"$MID","MAC":"$MAC","MEA":"$MEA","MEU":"$MEU","SDS":"$SDS","FPU":"$FPU","FSU":"$FSU","CPH":"$CPH","CPI":"$CPI","CPP":"$CPP","CPA":"$CPA","DTE":"$DTE","CPR":"$CPR"}
 EOF
 }
+
+
+######################################
+##             test               ##
+######################################
+if [ "$1" == "test" ]; then
+    echo generate_post_data
+    exit 0;
+fi
+######################################
+
+
+echo "Usage: osbox (install|update|reset)"
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -188,7 +198,7 @@ sendhash()
   # check if the post succeeds
   if [[ "$status_code" -eq 200 ]] ; then
     # unsuccessful attempt.
-    telegram "sendhash Ok (already registered!) : Status = $status_code"
+    #telegram "sendhash Ok (already registered!) : Status = $status_code"
     #devicelog "sendhash Ok (already registered!) : Status = $status_code ($IPV4_ADDRESS)"
     echo "sendhash Ok (already registered!)  : Status = $status_code ($IPV4_ADDRESS)" >>/boot/log.txt
     #echo "sendhash Error : Status = $status_code">>/boot/log.txt
@@ -196,7 +206,7 @@ sendhash()
     #echo "ERRORRRR do not activate."
 
   elif [[ "$status_code" -eq 201  ]] ;then
-    telegram "sendhash ok : device registered ( $IPV4_ADDRESS) $BID"
+    #telegram "sendhash ok : device registered ( $IPV4_ADDRESS) $BID"
     #devicelog "sendhash ok : device registered ($IPV4_ADDRESS) $BID"
     echo "sendhash ok : device registered ($IPV4_ADDRESS) $BID" >>/boot/log.txt
     #createpostboot
@@ -207,7 +217,7 @@ sendhash()
 
   else
 
-    telegram "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"
+    #telegram "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"
     #devicelog "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"
     echo "sendhash ERROR  : Status = $status_code ($IPV4_ADDRESS)"  >>/boot/log.txt
   fi

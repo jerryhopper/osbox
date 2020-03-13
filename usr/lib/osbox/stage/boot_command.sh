@@ -44,6 +44,7 @@ fi
 if [ "$OSBOX_STATE" == "0" ]; then
   echo "State = 0 | Hardware detection & initial state 0"
   echo $(minfo)>$OSBOX_HARDWARE
+
   # Set state.
   echo "1">$OSBOX_STATE_FILE
   OSBOX_STATE="1"
@@ -75,7 +76,7 @@ if [ "$OSBOX_STATE" == "2" ]; then
     echo "State = 2 | apt-install prerequisites"
     apt-get -y install php-common php-sqlite3 php-xml php-intl php-zip php-mbstring php-gd php-apcu php-cgi composer dialog dhcpcd5 dnsutils lsof nmap netcat idn2 dns-root-data
 
-
+    # disable dhcp server.
     service_dhcpcd "disable"
     service_dhcpcd "stop"
 
