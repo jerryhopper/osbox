@@ -10,7 +10,7 @@ registerdevice()
   -H "X-Script: 2_registerhardware.sh" \
   -H "Content-Type:application/json" \
   -H "Authorization: $OSBOX_ID" \
-  -X POST --data "$OSBOX_HARDWARE" "https://api.surfwijzer.nl/blackbox/api/installation/$OSBOX_ID/$IPV4_ADDRESS")
+  -X POST --data "$(<$OSBOX_HARDWARE)" "https://api.surfwijzer.nl/blackbox/api/installation/$OSBOX_ID/$IPV4_ADDRESS")
 
 
   # check if the post succeeds
