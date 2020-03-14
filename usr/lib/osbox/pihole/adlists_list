@@ -1,6 +1,6 @@
 
 piholeadlists(){
-    #$BID="$(</etc/)"
+    $OSBOX_ID="$(</etc/osbox/osbox.id)"
     echo "https://blocklists.surfwijzer.nl/category/porn/$OSBOX_ID">/etc/pihole/adlists.list
     echo "https://blocklists.surfwijzer.nl/category/proxy/$OSBOX_ID">>/etc/pihole/adlists.list
     echo "https://blocklists.surfwijzer.nl/category/advertising/$OSBOX_ID">>/etc/pihole/adlists.list
