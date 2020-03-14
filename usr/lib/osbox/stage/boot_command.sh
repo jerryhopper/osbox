@@ -151,6 +151,7 @@ if [ "$OSBOX_STATE" == "5" ]; then
     piholesetupvarsconf
     piholeftlconf
     piholeadlists
+    echo "www-data ALL=NOPASSWD: /usr/sbin/osbox">>/etc/sudoers.d/dietpi
     #copy_piholeftlconf
     #copy_piholesetupvarsconf
 
