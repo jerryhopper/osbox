@@ -233,6 +233,24 @@ if [ "$OSBOX_STATE" == "9" ]; then
 fi
 
 
+
+if [ "$OSBOX_STATE" == "10" ]; then
+    netType=$(grep "iface eth0" /etc/network/interfaces|awk '{print $4}')
+    if [ "$netType" == "static" ]; then
+      echo "11" > $OSBOX_STATE_FILE
+      OSBOX_STATE=11
+    fi
+fi
+
+if [ "$OSBOX_STATE" == "11" ]; then
+    # this state is set by another script
+    #echo "11" > $OSBOX_STATE_FILE
+    #OSBOX_STATE=11
+    var a = 1
+fi
+
+
+
 if [ "$OSBOX_STATE" == "X" ]; then
         # is pihole installed?
 
