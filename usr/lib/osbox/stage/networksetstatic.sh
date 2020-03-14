@@ -141,6 +141,8 @@ if is_command pihole ; then
   echo "$IP BlackBox">/etc/pihole/local.list
   echo "$IP pi.hole">>/etc/pihole/local.list
   echo "$IP blackbox.surfwijzer.nl">>/etc/pihole/local.list
+  echo "$IP nonexistent.surfwijzer.nl">>/etc/pihole/local.list
+
   piholesetupvarsconf
 fi
 
