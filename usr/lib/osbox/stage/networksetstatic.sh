@@ -137,14 +137,16 @@ echo  "wireless-power off">>/etc/network/interfaces
 echo  "wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf">>/etc/network/interfaces
 echo  "#dns-nameservers 8.8.8.8 8.8.4.4">>/etc/network/interfaces
 
-if is_command pihole ; then
+rm -f /etc/pihole/local.list
+
+#if is_command pihole ; then
   echo "$IP BlackBox">/etc/pihole/local.list
   echo "$IP pi.hole">>/etc/pihole/local.list
   echo "$IP blackbox.surfwijzer.nl">>/etc/pihole/local.list
   echo "$IP nonexistent.surfwijzer.nl">>/etc/pihole/local.list
 
   piholesetupvarsconf
-fi
+#fi
 
 
 echo "ok"
