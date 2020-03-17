@@ -246,7 +246,7 @@ if [ "$OSBOX_STATE" == "11" ]; then
     # this state is set by another script
     #echo "11" > $OSBOX_STATE_FILE
     #OSBOX_STATE=11
-    a = 1
+    echo "state 11"
 fi
 
 
