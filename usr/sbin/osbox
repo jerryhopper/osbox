@@ -453,6 +453,17 @@ if [ "$1" == "network" ]; then
         #echo "network current"
         bash /usr/share/blackbox/networkcurrent.sh
     fi
+
+    if [ "$2" == "reachablebydomainname" ]; then
+         if [ "$INSTALLSTATE" == "11" ]; then
+            echo "12">/etc/osbox/osbox.state
+         else
+            echo "Invalid state."
+            exit 1
+         fi
+
+    fi
+
 fi
 ######################################
 
