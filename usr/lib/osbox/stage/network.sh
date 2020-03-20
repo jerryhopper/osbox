@@ -23,6 +23,7 @@
   if [ "$1" == "set" ]; then
       #echo "networksetstatic.sh $2 $3 $4 $5 $6 $7"
       bash /usr/lib/osbox/stage/networksetstatic.sh $2 $3 $4 $5 $6
+      echo "11">/etc/osbox/osbox.state
       exit 0
       sleep 1
   fi
