@@ -249,7 +249,7 @@ if [ "$OSBOX_STATE" == "11" ]; then
     echo "state 11"
 fi
 
-if [ -f /etc/osbox/osbox.owner ]; then
+if [ ! -f /etc/osbox/osbox.owner ]; then
     bash /usr/lib/osbox/func/setupping>/dev/null
 fi
 
