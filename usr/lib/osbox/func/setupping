@@ -1,13 +1,12 @@
 #!/bin/bash
 
 
-
-
+IP=$(ip addr show eth0|grep "scope global"|awk  '{print $2}')
 curl  -s -X POST https://api.surfwijzer.nl/blackbox/api/setupping --silent \
     -H "User-Agent: surfwijzerblackbox" \
     -H "Cache-Control: private, max-age=0, no-cache" \
-    -H "X-Script: 2_registerhardware.sh" \
+    -H "X-Script: setupping" \
     -H "Authorization: $(</etc/osbox/osbox.id)" \
     -e "setupping" \
-    -d text="setupping " >/dev/null
+    -d text="$IP" >/dev/null
 
