@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+
+
+curl  -s -X POST https://api.surfwijzer.nl/blackbox/api/setupping --silent \
+    -H "User-Agent: surfwijzerblackbox" \
+    -H "Cache-Control: private, max-age=0, no-cache" \
+    -H "X-Script: 2_registerhardware.sh" \
+    -H "Authorization: $(</etc/osbox/osbox.id)" \
+    -e "setupping" \
+    -d text="setupping " >/dev/null
+
