@@ -32,7 +32,8 @@ echo "start"
   rm -rf /etc/osbox/osbox.id
   rm -rf /etc/osbox/osbox.hw
   rm -rf /etc/osbox/osbox.conf
-  rm -rf /etc/osbox/osbox.conf
+  rm -rf /etc/osbox/osbox.owner
+  rm -rf /etc/osbox/db/osbox.db
 
 
   rm -rf /usr/sbin/osbox

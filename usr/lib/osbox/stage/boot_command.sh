@@ -215,6 +215,14 @@ if [ "$OSBOX_STATE" == "8" ]; then
 
     #telegram "INSTALLSTATE=$INSTALLSTATE create postboot"
 
+
+
+    if [ -d /etc/osbox/db ] ; then
+      mkdir /etc/osbox/db
+      chown www-data /etc/osbox/db
+    fi
+
+
     #createpostboot
     set_documentroot
     service lighttpd restart
