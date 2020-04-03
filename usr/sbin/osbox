@@ -124,6 +124,7 @@ if [ "$1" == "owner" ]; then
             #bash /usr/share/blackbox/networkinfo.sh
             echo "$3">/etc/osbox/osbox.owner
             echo "13">/etc/osbox/osbox.state
+
         else
             echo "Wrong state!  $(</etc/osbox/osbox.state)";
             exit 1
