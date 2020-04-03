@@ -1,15 +1,15 @@
 
 piholeadlists(){
     $OSBOX_ID="$(</etc/osbox/osbox.id)"
-    echo "https://blocklists.surfwijzer.nl/category/porn/$OSBOX_ID">/etc/pihole/adlists.list
-    echo "https://blocklists.surfwijzer.nl/category/proxy/$OSBOX_ID">>/etc/pihole/adlists.list
-    echo "https://blocklists.surfwijzer.nl/category/advertising/$OSBOX_ID">>/etc/pihole/adlists.list
-    echo "https://blocklists.surfwijzer.nl/category/malware/$OSBOX_ID">>/etc/pihole/adlists.list
-    echo "https://blocklists.surfwijzer.nl/category/suspicious/$OSBOX_ID">>/etc/pihole/adlists.list
-    echo "https://blocklists.surfwijzer.nl/category/group1/$OSBOX_ID">>/etc/pihole/adlists.list
-    echo "https://blocklists.surfwijzer.nl/category/group2/$OSBOX_ID">>/etc/pihole/adlists.list
-    echo "https://blocklists.surfwijzer.nl/category/group3/$OSBOX_ID">>/etc/pihole/adlists.list
-    echo "https://blocklists.surfwijzer.nl/category/group4/$OSBOX_ID">>/etc/pihole/adlists.list
-    echo "https://blocklists.surfwijzer.nl/category/group5/$OSBOX_ID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/c/porn/$OSBOX_ID">/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/c/proxy/$OSBOX_ID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/c/ads/$OSBOX_ID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/c/tracking/$OSBOX_ID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/c/shorturl/$OSBOX_ID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/g/1/$OSBOX_ID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/g/2/$OSBOX_ID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/g/3/$OSBOX_ID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/g/4/$OSBOX_ID">>/etc/pihole/adlists.list
+    echo "https://blocklists.surfwijzer.nl/g/5/$OSBOX_ID">>/etc/pihole/adlists.list
 }
 
