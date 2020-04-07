@@ -145,6 +145,8 @@ rm -f /etc/pihole/local.list
   echo "$IP blackbox.surfwijzer.nl">>/etc/pihole/local.list
   echo "$IP nonexistent.surfwijzer.nl">>/etc/pihole/local.list
 
+  echo "$IP blackbox.surfwijzer.nl">>/etc/pihole/custom.list
+  echo "$IP nonexistent.surfwijzer.nl">>/etc/pihole/custom.list
   piholesetupvarsconf
 #fi
 
