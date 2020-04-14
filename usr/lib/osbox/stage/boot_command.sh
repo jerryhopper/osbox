@@ -154,6 +154,8 @@ if [ "$OSBOX_STATE" == "5" ]; then
     echo "www-data ALL=NOPASSWD: /usr/sbin/osbox">>/etc/sudoers.d/dietpi
     #copy_piholeftlconf
     #copy_piholesetupvarsconf
+    cp -f /usr/lib/osbox/pihole/bbavahiservice.service /etc/avahi/services
+
 
     # Set state.
     echo "6" > $OSBOX_STATE_FILE
