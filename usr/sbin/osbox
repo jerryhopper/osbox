@@ -471,6 +471,7 @@ if [ "$1" == "network" ]; then
     if [ "$2" == "scan" ]; then
         bash /usr/share/blackbox/networkscan.sh
     fi
+
     if [ "$2" == "scanxml" ]; then
         #echo "network currentxml"
         bash /usr/share/blackbox/networkscan.sh xml
