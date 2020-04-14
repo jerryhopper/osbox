@@ -471,6 +471,10 @@ if [ "$1" == "network" ]; then
     if [ "$2" == "scan" ]; then
         bash /usr/share/blackbox/networkscan.sh
     fi
+    if [ "$2" == "scanxml" ]; then
+        #echo "network currentxml"
+        bash /usr/share/blackbox/networkscan.sh xml
+    fi
 
     if [ "$2" == "reset" ]; then
         #echo "network reset"
@@ -486,6 +490,7 @@ if [ "$1" == "network" ]; then
         #echo "network current"
         bash /usr/share/blackbox/networkcurrent.sh
     fi
+
 
     if [ "$2" == "reachablebydomainname" ]; then
          if [ "$INSTALLSTATE" == "11" ]; then
